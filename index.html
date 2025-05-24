@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sua Oferta Imperdível!</title>
+    <style>
+        /* Font - Aspekta (Certifique-se de ter o arquivo da fonte) */
+        @font-face {
+            font-family: 'Aspekta';
+            src: url('./public/fonts/Aspekta-600.ttf') format('truetype'); /* Ajuste o caminho se necessário */
+            font-weight: 600;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Manrope'; /* Adicionando Manrope como fallback ou para outros textos */
+            src: url('./public/fonts/Manrope-Regular.ttf') format('truetype'); /* Ajuste o caminho se necessário */
+            font-weight: 400;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Manrope';
+            src: url('./public/fonts/Manrope-Bold.ttf') format('truetype'); /* Ajuste o caminho se necessário */
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --glowbox-animation-speed: 2.5s; 
+        }
+
+        html {
+            height: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Manrope", sans-serif;
+            background-image: url('https://i.imgur.com/gkNTADZ.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #0E0C0C; /* Fallback */
+            color: #F4F3F2;
+            min-height: 100%;
+        }
+
+        .page-wrapper {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px;
+            position: relative;
+            z-index: 0;
+        }
+
+        .page-wrapper::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(14, 12, 12, 0.88); /* Overlay escuro */
+            z-index: -1;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px; /* Largura do conteúdo principal */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px; /* Espaçamento entre seções */
+            border-radius: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .sales-section {
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .sales-section:not(:last-child) {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Linha divisória sutil */
+            margin-bottom: 20px;
+            padding-bottom: 40px;
+        }
+        .sales-section.no-border { /* Classe para remover a borda inferior */
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 20px;
+        }
+
+
+        .headline {
+            font-family: 'Aspekta', sans-serif;
+            font-size: clamp(2em, 6vw, 3.5em); /* Responsivo */
+            font-weight: 700;
+            color: #ff8031; /* Cor de destaque */
+            margin-bottom: 15px;
+            line-height: 1.1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+         .section-headline { /* Estilo para títulos de seção secundários */
+            font-family: 'Aspekta', sans-serif;
+            font-size: clamp(1.5em, 5vw, 2.5em);
+            font-weight: 700;
+            color: #F0F0F0; /* Cor mais clara para subtítulos de seção */
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+
+
+        .sub-headline {
+            font-size: clamp(1em, 3.5vw, 1.4em); /* Responsivo */
+            color: #E0E0E0;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .paragraph-text {
+            font-size: clamp(1em, 2.8vw, 1.15em);
+            color: #D0D0D0;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            text-align: left; /* Para melhor leitura em blocos de texto */
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+         .paragraph-text.center {
+            text-align: center;
+         }
+
+
+        .video-container {
+            width: 100%;
+            max-width: 720px; /* Tamanho maior para VSL */
+            margin: 0 auto 30px auto;
+            aspect-ratio: 16 / 9;
+            background-color: #1a1a1a;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: left;
+        }
+        .benefits-list li {
+            font-size: clamp(1em, 2.8vw, 1.15em);
+            color: #D0D0D0;
+            margin-bottom: 15px;
+            padding-left: 35px; /* Aumentado para ícone maior */
+            position: relative;
+            line-height: 1.5;
+        }
+        .benefits-list li::before {
+            content: "✓"; /* Ou use um ícone SVG/FontAwesome */
+            color: #FF8031;
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: bold;
+            font-size: 1.4em; /* Ícone maior */
+        }
+
+        .testimonials-section blockquote {
+            background-color: rgba(255,255,255,0.05);
+            border-left: 5px solid #FF8031;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 550px;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: #C0C0C0;
+        }
+        .testimonials-section cite {
+            display: block;
+            text-align: right;
+            margin-top: 10px;
+            color: #FF8031;
+            font-weight: bold;
+        }
+
+        .objection-item, .faq-item {
+            background-color: rgba(255,255,255,0.03);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: left;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .objection-item strong, .faq-item strong {
+            display: block;
+            color: #FF8031;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .guarantee-section img {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+        .creator-section img.creator-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center top;
+            margin-bottom: 20px;
+            border: 4px solid rgba(255, 136, 72, 0.6);
+        }
+
+        /* --- Carrossel Antes e Depois --- */
+        .carousel-section {
+            width: 100%;
+            max-width: 650px; /* Largura ajustada */
+            margin: 20px auto;
+            position: relative;
+        }
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            background-color: rgba(20, 20, 20, 0.7); /* Fundo mais escuro e translúcido */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px; /* Padding interno */
+        }
+        .carousel-slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-slide {
+            min-width: 100%;
+            text-align: center;
+        }
+        .carousel-slide .single-image-container { 
+            width: 100%;
+            max-height: 400px; 
+            margin-bottom: 15px;
+            overflow: hidden; 
+            border-radius: 10px; 
+        }
+        .carousel-slide .single-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            display: block;
+        }
+        .carousel-slide h4 { 
+            font-family: 'Aspekta', sans-serif;
+            color: #FF8031;
+            font-size: clamp(1.1em, 3vw, 1.4em);
+            margin-bottom: 8px;
+        }
+        .carousel-slide p { 
+            color: #D0D0D0;
+            font-size: clamp(0.85em, 2.5vw, 1em);
+            line-height: 1.5;
+        }
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            left: 0; 
+            right: 0; 
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 5px; 
+            pointer-events: none;
+        }
+        .carousel-nav button {
+            background-color: rgba(255, 136, 72, 0.6); 
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            pointer-events: all;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .carousel-nav button:hover {
+            background-color: #FF8031;
+            transform: scale(1.1);
+        }
+        .carousel-dots {
+            text-align: center;
+            margin-top: 20px; 
+        }
+        .carousel-dot {
+            display: inline-block;
+            width: 12px; 
+            height: 12px; 
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.2); 
+            margin: 0 6px; 
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .carousel-dot.active {
+            background-color: #FF8031;
+        }
+
+
+        /* ESTILOS DO BOTÃO PADRONIZADOS */
+        .button-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .btn-cta-box {
+            width: 100%;
+            padding: 8px;
+            background: linear-gradient(225deg, rgba(255, 100, 50, 0.3) 5%, rgba(255, 136, 72, 0.1) 43%, rgba(255, 160, 100, 0.05) 68%);
+            border: 1px solid #FF8031;
+            border-radius: 100px;
+            box-shadow: 10px 10px 30px 0px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-decoration: none;
+            color: #fff;
+            position: relative;
+        }
+        .glowbox:hover .btn-cta-box {
+            transform: scale(1.03) translateY(-2px);
+            transition: transform 0.2s ease-out;
+        }
+
+        .btn-cta {
+            width: 100%;
+            padding: 14px 20px;
+            background: linear-gradient(271.55deg, #FF6200 5.88%, #FF8031 50.22%, #FF9E5E 95.32%);
+            border: 1px solid #FFC8A4;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+            border-radius: 100px;
+            letter-spacing: 0.8px;
+            font-family: 'Aspekta', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1em, 3vw, 1.2em);
+            color: #fff;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .glowbox {
+            isolation: isolate;
+            overflow: hidden;
+            border-radius: 999px;
+            display: block;
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            text-decoration: none;
+        }
+
+        .glowbox-active .glowbox-animations,
+        .glowbox-active .glowbox-borders-masker {
+            opacity: 1;
+        }
+
+        .glowbox-animations,
+        .glowbox-borders {
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .glowbox-animations:before,
+        .glowbox-borders:before {
+            content: "";
+            float: left;
+            padding-top: 100%;
+        }
+
+        .glowbox-animations:after,
+        .glowbox-borders:after {
+            clear: both;
+            content: "";
+            display: block;
+        }
+
+        .glowbox-animations {
+            opacity: 0;
+            pointer-events: none;
+            transition: 1s ease opacity;
+        }
+
+        .glowbox-animations * {
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+
+        .glowbox-borders,
+        .glowbox-glow {
+            animation: borderTurnGlowbox var(--glowbox-animation-speed) infinite linear;
+            background-image: conic-gradient(from 0deg at 50% 50%,
+                    rgba(255, 136, 72, 0.8) 0deg,
+                    rgba(100, 132, 139, 0) 80deg,
+                    rgba(100, 132, 139, 0) 280deg,
+                    rgba(255, 198, 164, 0.8) 360deg);
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .glowbox-stars {
+            animation: borderTurnGlowbox var(--glowbox-animation-speed) infinite linear;
+            background-image: conic-gradient(from 0deg at 50% 50%,
+                    rgba(255, 136, 72, 1) 0deg,
+                    rgba(100, 132, 139, 0) 60deg,
+                    rgba(100, 132, 139, 0) 300deg,
+                    rgba(255, 198, 164, 1) 360deg);
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.9;
+        }
+
+        .glowbox-stars-masker {
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='28' height='24' viewBox='0 0 28 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14.0534 15.732C13.8444 15.283 14.2848 14.8489 14.7326 15.051C14.8296 15.0959 14.9043 15.1707 14.949 15.268C15.1506 15.717 14.7177 16.1511 14.2698 15.949C14.1728 15.9041 14.0982 15.8293 14.0534 15.732Z' fill='black'/%3E%3Cpath d='M18.8001 13.5093C19.0016 13.0603 18.5687 12.6263 18.1209 12.8283C18.0239 12.8732 17.9492 12.9481 17.9045 13.0453C17.6955 13.4944 18.1358 13.9284 18.5837 13.7264C18.6807 13.6815 18.7553 13.6066 18.8001 13.5093Z' fill='black'/%3E%3Cpath d='M0.949043 2.732C1.15057 2.28297 0.717663 1.84891 0.269836 2.05097C0.172806 2.09587 0.098162 2.17071 0.0533793 2.268C-0.155607 2.71703 0.284759 3.15109 0.732587 2.94903C0.829616 2.90413 0.90426 2.82929 0.949043 2.732Z' fill='black'/%3E%3Cpath d='M26.9489 7.732C27.151 7.28297 26.7169 6.84891 26.2679 7.05097C26.1706 7.09587 26.0958 7.17071 26.0508 7.268C25.8488 7.71703 26.2828 8.15109 26.7319 7.94903C26.8292 7.90413 26.904 7.82929 26.9489 7.732Z' fill='black'/%3E%3Cpath d='M13.0534 5.732C12.8444 5.28297 13.2848 4.84891 13.7326 5.05097C13.8296 5.09587 13.9043 5.17071 13.949 5.268C14.1506 5.71703 13.7177 6.15109 13.2698 5.94903C13.1728 5.90413 13.0982 5.82929 13.0534 5.732Z' fill='black'/%3E%3Cpath d='M10.0534 17.732C9.84439 17.283 10.2848 16.8489 10.7326 17.051C10.8296 17.0959 10.9043 17.1707 10.949 17.268C11.1506 17.717 10.7177 18.1511 10.2698 17.949C10.1728 17.9041 10.0982 17.8293 10.0534 17.732Z' fill='black'/%3E%3Cpath d='M15.0534 21.732C14.8444 21.283 15.2848 20.8489 15.7326 21.051C15.8296 21.0959 15.9043 21.1707 15.949 21.268C16.1506 21.717 15.7177 22.1511 15.2698 21.949C15.1728 21.9041 15.0982 21.8293 15.0534 21.732Z' fill='black'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg width='28' height='24' viewBox='0 0 28 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14.0534 15.732C13.8444 15.283 14.2848 14.8489 14.7326 15.051C14.8296 15.0959 14.9043 15.1707 14.949 15.268C15.1506 15.717 14.7177 16.1511 14.2698 15.949C14.1728 15.9041 14.0982 15.8293 14.0534 15.732Z' fill='black'/%3E%3Cpath d='M18.8001 13.5093C19.0016 13.0603 18.5687 12.6263 18.1209 12.8283C18.0239 12.8732 17.9492 12.9481 17.9045 13.0453C17.6955 13.4944 18.1358 13.9284 18.5837 13.7264C18.6807 13.6815 18.7553 13.6066 18.8001 13.5093Z' fill='black'/%3E%3Cpath d='M0.949043 2.732C1.15057 2.28297 0.717663 1.84891 0.269836 2.05097C0.172806 2.09587 0.098162 2.17071 0.0533793 2.268C-0.155607 2.71703 0.284759 3.15109 0.732587 2.94903C0.829616 2.90413 0.90426 2.82929 0.949043 2.732Z' fill='black'/%3E%3Cpath d='M26.9489 7.732C27.151 7.28297 26.7169 6.84891 26.2679 7.05097C26.1706 7.09587 26.0958 7.17071 26.0508 7.268C25.8488 7.71703 26.2828 8.15109 26.7319 7.94903C26.8292 7.90413 26.904 7.82929 26.9489 7.732Z' fill='black'/%3E%3Cpath d='M13.0534 5.732C12.8444 5.28297 13.2848 4.84891 13.7326 5.05097C13.8296 5.09587 13.9043 5.17071 13.949 5.268C14.1506 5.71703 13.7177 6.15109 13.2698 5.94903C13.1728 5.90413 13.0982 5.82929 13.0534 5.732Z' fill='black'/%3E%3Cpath d='M10.0534 17.732C9.84439 17.283 10.2848 16.8489 10.7326 17.051C10.8296 17.0959 10.9043 17.1707 10.949 17.268C11.1506 17.717 10.7177 18.1511 10.2698 17.949C10.1728 17.9041 10.0982 17.8293 10.0534 17.732Z' fill='black'/%3E%3Cpath d='M15.0534 21.732C14.8444 21.283 15.2848 20.8489 15.7326 21.051C15.8296 21.0959 15.9043 21.1707 15.949 21.268C16.1506 21.717 15.7177 22.1511 15.2698 21.949C15.1728 21.9041 15.0982 21.8293 15.0534 21.732Z' fill='black'/%3E%3C/svg%3E");
+            -webkit-mask-repeat: repeat;
+            mask-repeat: repeat;
+            -webkit-mask-size: auto;
+            mask-size: auto;
+        }
+
+        .glowbox-glow {
+            filter: blur(8px);
+            opacity: 0.15;
+        }
+
+        .glowbox-borders-masker {
+            border-radius: inherit;
+            content: "";
+            height: 100%;
+            inset: 0;
+            -webkit-mask-image: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-image: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            opacity: 0;
+            padding: 1px;
+            pointer-events: none;
+            position: absolute;
+            transition: 1s ease opacity;
+            width: 100%;
+            z-index: 1;
+        }
+
+        @keyframes borderTurnGlowbox {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #A0A0A0;
+        }
+
+
+        /* --- Responsividade --- */
+        @media (max-width: 768px) {
+            .page-wrapper {
+                padding: 15px 10px;
+            }
+            .container {
+                gap: 25px;
+                padding: 15px;
+            }
+            .headline {
+                font-size: clamp(1.8em, 5vw, 2.8em);
+            }
+            .sub-headline {
+                font-size: clamp(0.9em, 3vw, 1.2em);
+            }
+            .glowbox {
+                 max-width: 360px;
+            }
+            .carousel-nav button { 
+                padding: 8px 12px;
+                font-size: 1em;
+            }
+            .carousel-slide .image-pair img {
+                max-height: 200px; 
+            }
+        }
+        @media (max-width: 480px) {
+             .page-wrapper {
+                padding: 10px 5px;
+            }
+            .container {
+                gap: 20px;
+                padding: 10px;
+                border-radius: 10px;
+            }
+             .sales-section:not(:last-child) {
+                padding-bottom: 30px;
+            }
+            .headline {
+                 margin-bottom: 10px;
+            }
+            .sub-headline {
+                margin-bottom: 20px;
+            }
+            .video-container {
+                margin-bottom: 20px;
+                border-radius: 10px;
+            }
+            .glowbox {
+                 max-width: 100%;
+            }
+            .btn-cta {
+                padding: 12px 16px;
+            }
+            .carousel-slide .image-pair {
+                flex-direction: column; 
+            }
+            .carousel-slide .image-pair img {
+                max-height: 180px;
+            }
+             .carousel-nav {
+                padding: 0 5px;
+            }
+             .carousel-nav button {
+                padding: 6px 10px;
+                font-size: 0.9em;
+            }
+            .carousel-dots {
+                margin-top: 10px;
+            }
+            .carousel-dot {
+                width: 8px;
+                height: 8px;
+                margin: 0 4px;
+            }
+        }
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> </head>
+<body>
+
+    <div class="page-wrapper">
+        <div class="container">
+            <section class="sales-section main-offer">
+                <h1 class="headline">Transforme Sua Realidade Com Nosso Método Exclusivo!</h1>
+                <p class="sub-headline">Descubra o segredo que milhares já utilizaram para alcançar resultados incríveis em tempo recorde. Chegou a sua vez de virar o jogo!</p>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/w4KnKabe_6E?si=7mOx4Tem7j2FAjwD&controls=0" title="Vídeo de Vendas Principal" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="button-container">
+                    <a href="#oferta" class="glowbox glowbox-active" style="text-decoration: none;">
+                        <div class="glowbox-animations">
+                            <div class="glowbox-glow"></div>
+                            <div class="glowbox-stars-masker">
+                                <div class="glowbox-stars"></div>
+                            </div>
+                        </div>
+                        <div class="glowbox-borders-masker">
+                            <div class="glowbox-borders"></div>
+                        </div>
+                        <div class="btn-cta-box">
+                            <div class="btn-cta">QUERO TRANSFORMAR MINHA VIDA AGORA!</div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+
+
+
+            <section class="sales-section problem-consequence">
+                <h2 class="section-headline">Você se Identifica Com Isso?</h2>
+                <p class="paragraph-text">Muitos enfrentam [descreva a dor principal] diariamente, sentindo-se presos em um ciclo de [consequência negativa 1] e [consequência negativa 2]. A falta de [o que falta] impede que alcancem [o desejo principal], resultando em frustração e a sensação de estar sempre correndo atrás.</p>
+                <p class="paragraph-text">Se você já se sentiu assim, saiba que não está sozinho(a) e, mais importante, existe uma saída clara e comprovada.</p>
+            </section>
+
+            <section class="sales-section solution">
+                <h2 class="section-headline">A Solução Definitiva Que Você Esperava</h2>
+                <p class="paragraph-text">Apresentamos o [Nome do Produto/Serviço], uma metodologia/ferramenta/programa revolucionário(a) desenhado(a) especificamente para [resolver o problema principal] e te guiar passo a passo rumo a [resultado desejado].</p>
+                <p class="paragraph-text">De forma simples e direta, o [Nome do Produto/Serviço] funciona através de [breve explicação de como funciona - ex: 3 pilares, um processo X, uma tecnologia Y]. Esqueça as complicações e foque no que realmente traz resultados.</p>
+                <img src="https://i.imgur.com/rgOcGAV.jpeg" alt="Visualização do Produto/Serviço" style="max-width: 100%; border-radius: 10px; margin-top: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+            </section>
+            
+            <section class="sales-section before-after-carousel">
+                <h2 class="section-headline">Resultados Reais: Antes e Depois</h2>
+                <div class="carousel-section">
+                    <div class="carousel-container">
+                        <div class="carousel-slides">
+                            <div class="carousel-slide">
+                                <h4>Transformação de [Nome do Cliente 1]</h4>
+                                <div class="single-image-container">
+                                     <img src="https://i.imgur.com/XhPldd2.jpeg" alt="Antes e Depois - Cliente 1">
+                                </div>
+                                <p>Breve descrição do resultado do Cliente 1.</p>
+                            </div>
+                            <div class="carousel-slide">
+                                <h4>O Caso de Sucesso de [Nome do Cliente 2]</h4>
+                                 <div class="single-image-container">
+                                     <img src="https://i.imgur.com/7Qjc0xH.jpeg" alt="Antes e Depois - Cliente 2">
+                                 </div>
+                                <p>Como [Nome do Cliente 2] alcançou [resultado específico].</p>
+                            </div>
+                            <div class="carousel-slide">
+                                <h4>A Virada de Jogo de [Nome do Cliente 3]</h4>
+                                <div class="single-image-container">
+                                     <img src="https://i.imgur.com/2PxwHvN.jpeg" alt="Antes e Depois - Cliente 3">
+                                </div>
+                                <p>Detalhes da impressionante transformação de [Nome do Cliente 3].</p>
+                            </div>
+                            <div class="carousel-slide">
+                                <h4>A Virada de Jogo de [Nome do Cliente 4]</h4>
+                                <div class="single-image-container">
+                                     <img src="https://i.imgur.com/QsUtHP6.jpeg" alt="Antes e Depois - Cliente 3">
+                                </div>
+                                <p>Detalhes da impressionante transformação de [Nome do Cliente 4].</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-nav">
+                        <button id="prevSlide" aria-label="Slide Anterior">❮</button>
+                        <button id="nextSlide" aria-label="Próximo Slide">❯</button>
+                    </div>
+                    <div class="carousel-dots">
+                        </div>
+                </div>
+            </section>
+
+
+            <section class="sales-section benefits">
+                <h2 class="section-headline">O Que Você Vai Conquistar:</h2>
+                <ul class="benefits-list">
+                    <li>[Benefício tangível 1, ex: Aumentar sua renda em X%] e sentir a liberdade financeira que sempre sonhou.</li>
+                    <li>[Benefício emocional 1, ex: Recuperar sua confiança] ao dominar [habilidade chave].</li>
+                    <li>[Benefício tangível 2, ex: Economizar X horas por semana] para que você possa dedicar mais tempo ao que realmente importa.</li>
+                    <li>[Benefício emocional 2, ex: Eliminar o estresse e a ansiedade] relacionados a [problema específico].</li>
+                    <li>Acesso a um método comprovado que já transformou a vida de [número] pessoas.</li>
+                </ul>
+            </section>
+
+            <section class="sales-section testimonials-section">
+                <h2 class="section-headline">Veja Quem Já Transformou a Vida:</h2>
+                <blockquote>
+                    <p>"Este método mudou completamente minha perspectiva e meus resultados. Nunca imaginei que seria tão impactante!"</p>
+                    <cite>– Cliente Satisfeito(a)</cite>
+                </blockquote>
+                <blockquote>
+                    <p>"Simplesmente incrível! O suporte é fantástico e o conteúdo é de um valor inestimável. Recomendo de olhos fechados."</p>
+                    <cite>– Outro Cliente Feliz</cite>
+                </blockquote>
+                </section>
+
+            <section id="oferta" class="sales-section offer-details">
+                 <h2 class="section-headline">Sua Oferta Especial Hoje:</h2>
+                 <p class="sub-headline" style="font-size: clamp(1em, 3vw, 1.3em);">Ao garantir sua vaga hoje, você não leva apenas o [Nome do Produto/Serviço Principal], mas um pacote completo para sua transformação:</p>
+                 <ul class="benefits-list" style="max-width: 550px;">
+                    <li><i class="fas fa-check-circle" style="color: #FF8031; margin-right: 8px;"></i> Acesso Completo ao [Nome do Produto/Serviço Principal] (Valor R$X.XXX,XX)</li>
+                    <li><i class="fas fa-star" style="color: #FFD700; margin-right: 8px;"></i> <strong>BÔNUS #1:</strong> Guia Rápido de Implementação (Valor R$XXX,XX)</li>
+                    <li><i class="fas fa-gift" style="color: #FF8031; margin-right: 8px;"></i> <strong>BÔNUS #2:</strong> Acesso à Comunidade VIP Exclusiva (Valor R$XXX,XX)</li>
+                    <li><i class="fas fa-tools" style="color: #FFA500; margin-right: 8px;"></i> <strong>BÔNUS #3:</strong> Ferramentas Secretas dos Experts (Valor R$XXX,XX)</li>
+                    <li><i class="fas fa-calendar-alt" style="color: #FF8031; margin-right: 8px;"></i> <strong>BÔNUS ESPECIAL (Hoje):</strong> Workshop Ao Vivo de Tira-Dúvidas (Inestimável!)</li>
+                 </ul>
+                 <p class="paragraph-text center" style="font-size: 1.3em; margin-top: 30px;">Valor Total de Tudo Isso: <s style="color:#aaa;">R$Y.YYY,YY</s><br>
+                    Mas Hoje, Para Você: <strong style="color: #FF8031; font-size: 1.5em;">Apenas 12x de R$ZZ,ZZ</strong><br>
+                    Ou R$W.WWW,WW à vista!</p>
+                <p class="paragraph-text center" style="font-size: 0.9em; color: #FFD700;"><strong>Atenção:</strong> Esta oferta com todos os bônus é válida apenas para os próximos [Tempo ou Número de Vagas]!</p>
+                 <div class="button-container">
+                    <a href="#comprar-oferta" class="glowbox glowbox-active" style="text-decoration: none;">
+                        <div class="glowbox-animations">
+                            <div class="glowbox-glow"></div>
+                            <div class="glowbox-stars-masker">
+                                <div class="glowbox-stars"></div>
+                            </div>
+                        </div>
+                        <div class="glowbox-borders-masker">
+                            <div class="glowbox-borders"></div>
+                        </div>
+                        <div class="btn-cta-box">
+                            <div class="btn-cta">SIM, QUERO GARANTIR MINHA OFERTA!</div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <section class="sales-section objection-handling">
+                <h2 class="section-headline">Ainda em Dúvida? Nós Entendemos.</h2>
+                <div class="objection-item">
+                    <strong>Isso realmente funciona para mim, mesmo que [objeção comum, ex: eu seja iniciante/não tenha tempo]?</strong>
+                    <p>Absolutamente! O [Nome do Produto/Serviço] foi desenhado para [público específico], e muitos dos nossos casos de sucesso são de pessoas que começaram exatamente como você. O método é [adaptável/passo a passo/rápido de implementar].</p>
+                </div>
+                <div class="objection-item">
+                    <strong>E se eu não gostar ou não tiver resultados?</strong>
+                    <p>Seu risco é ZERO! Oferecemos uma garantia incondicional de [X] dias. Se por qualquer motivo você não ficar 100% satisfeito, basta nos enviar um e-mail e devolvemos todo o seu investimento, sem perguntas.</p>
+                </div>
+                <div class="objection-item">
+                    <strong>O preço não é muito alto?</strong>
+                    <p>Considere o custo de continuar sem resolver [o problema]. Quanto vale para você [alcançar o benefício principal]? O investimento no [Nome do Produto/Serviço] é mínimo perto da transformação e dos resultados que ele proporciona. Além disso, com os bônus inclusos, o valor que você recebe é muitas vezes maior.</p>
+                </div>
+            </section>
+
+             <section class="sales-section guarantee-section">
+                <img src="https://i.imgur.com/lGsgy18.png" alt="Selo de Garantia" class="guarantee-section img">
+                <h2 class="section-headline" style="color: #F0F0F0;">Sua Satisfação ou Seu Dinheiro de Volta!</h2>
+                <p class="sub-headline" style="font-size: clamp(0.9em, 2.8vw, 1.1em);">Temos tanta confiança no nosso método que oferecemos uma garantia incondicional de [X] dias. Se não ficar satisfeito, devolvemos 100% do seu investimento, sem burocracia e sem ressentimentos.</p>
+            </section>
+
+            <section id="comprar-final" class="sales-section final-cta no-border">
+                 <h2 class="headline" style="font-size: clamp(1.8em, 5vw, 3em);">Não Deixe Essa Chance Escapar!</h2>
+                 <p class="sub-headline">Esta é a sua oportunidade de finalmente [principal transformação]. A decisão é sua, mas o tempo está correndo.</p>
+                 <div class="button-container">
+                     <a href="#checkout" class="glowbox glowbox-active" style="text-decoration: none;">
+                        <div class="glowbox-animations">
+                            <div class="glowbox-glow"></div>
+                            <div class="glowbox-stars-masker">
+                                <div class="glowbox-stars"></div>
+                            </div>
+                        </div>
+                        <div class="glowbox-borders-masker">
+                            <div class="glowbox-borders"></div>
+                        </div>
+                        <div class="btn-cta-box">
+                            <div class="btn-cta">EU QUERO MUDAR DE VIDA AGORA!</div>
+                        </div>
+                    </a>
+                </div>
+                <p class="paragraph-text center" style="font-size: 0.8em; margin-top:15px; color: #bbb;">Compra 100% segura. Seus dados estão protegidos.</p>
+            </section>
+
+            <section class="sales-section creator-section">
+                <h2 class="section-headline">Conheça Quem Vai Te Guiar</h2>
+                <img src="https://i.imgur.com/0niwy5n.png" alt="Foto do Criador" class="creator-section img creator-avatar">
+                <h3 style="font-family: 'Aspekta', sans-serif; font-size: clamp(1.3em, 4vw, 1.8em); color: #FF8031; margin-bottom:10px;">[Nome do Criador]</h3>
+                <p class="paragraph-text" style="max-width: 600px;">[Breve biografia do criador, destacando sua experiência, autoridade no assunto e paixão por ajudar pessoas como o seu público. Humanize a oferta e gere conexão.]</p>
+            </section>
+
+            <section class="sales-section faq-section">
+                <h2 class="section-headline">Perguntas Frequentes (FAQs)</h2>
+                <div class="faq-item">
+                    <strong>Pergunta Frequente 1: [Pergunta]?</strong>
+                    <p>Resposta clara e direta para a pergunta 1.</p>
+                </div>
+                <div class="faq-item">
+                    <strong>Pergunta Frequente 2: [Pergunta]?</strong>
+                    <p>Resposta clara e direta para a pergunta 2.</p>
+                </div>
+                <div class="faq-item">
+                    <strong>Pergunta Frequente 3: [Pergunta]?</strong>
+                    <p>Resposta clara e direta para a pergunta 3.</p>
+                </div>
+                </section>
+
+
+            <footer class="footer">
+                <p>© 2024 Seu Nome/Sua Empresa. Todos os direitos reservados.</p>
+                <p><a href="#" style="color: #FF8031; text-decoration:underline;">Termos de Uso</a> | <a href="#" style="color: #FF8031; text-decoration:underline;">Política de Privacidade</a></p>
+            </footer>
+
+        </div>
+    </div>
+    <script>
+        // JavaScript para o Carrossel
+        const slidesContainer = document.querySelector('.carousel-slides');
+        const slides = Array.from(document.querySelectorAll('.carousel-slide'));
+        const nextButton = document.getElementById('nextSlide');
+        const prevButton = document.getElementById('prevSlide');
+        const dotsContainer = document.querySelector('.carousel-dots');
+
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        // Criar dots de navegação
+        if (dotsContainer && slides.length > 0) { 
+            slides.forEach((slide, index) => {
+                const dot = document.createElement('span');
+                dot.classList.add('carousel-dot');
+                if (index === 0) {
+                    dot.classList.add('active');
+                }
+                dot.addEventListener('click', () => {
+                    goToSlide(index);
+                });
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+
+        const dots = Array.from(document.querySelectorAll('.carousel-dot'));
+
+        function updateCarousel() {
+            if (slidesContainer) { 
+                 slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+            }
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        function goToSlide(index) {
+            currentIndex = index;
+            updateCarousel();
+        }
+
+        if (nextButton && prevButton) { 
+            nextButton.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateCarousel();
+            });
+
+            prevButton.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+            });
+        }
+        
+        if (slides.length > 0) {
+            updateCarousel();
+        }
+
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</body>
+</html>
